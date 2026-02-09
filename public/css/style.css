@@ -129,3 +129,14 @@ footer {
     transform: none !important;
     box-shadow: none !important;
 }
+
+/* Disable hover on review cards */
+.review-card {
+    transition: none !important;
+    border-radius: 0.75rem;
+}
+
+.review-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}

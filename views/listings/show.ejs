@@ -31,15 +31,22 @@
                     </form>
                     <hr>
                     <p><b>All Reviews</b></p>
-                    <% for(review of listing.reviews) { %>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Jan Deo</h5>
-                                <p class="card-text"><%= review.comment %></p>
-                                <p class="card-text"><%= review.rating %></p>
+                    <div class="row g-3 mt-2">
+                        <% for(review of listing.reviews) { %>
+                            <div class="col-md-6">
+                                <div class="card review-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Jan Deo</h5>
+                                        <p class="card-text"><%= review.comment %></p>
+                                        <p class="card-text"><%= review.rating %> stars</p>
+                                    </div>
+                                    <form class="mb-3" method="POST" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
+                                        <button class="btn btn-sm btn-dark">Delete</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    <% } %>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
