@@ -6,6 +6,7 @@
         <div class="card show-card">
             <img src="<%= listing.image.url %>" class="card-img-top show-img listing-card" alt="listing_image">
             <div class="card-body">
+                <p class="card-text"><%= listing.owner.username %></p>
                 <p class="card-text"><%= listing.description %></p>
                 <p class="card-text">₹ <%= listing.price.toLocaleString("en-IN") %><br><%= listing.location %><br><%= listing.country %></p>
                 <div class="d-flex gap-2 mt-3">
