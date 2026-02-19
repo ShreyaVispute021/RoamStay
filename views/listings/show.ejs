@@ -9,14 +9,12 @@
                 <p class="card-text"><%= listing.owner ? listing.owner.username : "Unknown Owner" %></p>
                 <p class="card-text"><%= listing.description %></p>
                 <p class="card-text">₹ <%= listing.price.toLocaleString("en-IN") %><br><%= listing.location %><br><%= listing.country %></p>
-                <!-- <% if(currUser && listing.owner && currUser._id.equals(listing.owner._id)) { %> -->
                 <div class="d-flex gap-2 mt-3">
                     <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger">Edit</a>
                     <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
                         <button class="btn btn-dark">Delete</button>
                     </form>
                 </div>
-                <!-- <% } %> -->
                 <% if(currUser && listing.owner && listing.owner._id.equals(currUser._id))  {%>
                 <div class="col-8 offset-2">
                     <hr>
@@ -26,6 +24,20 @@
                             <label for="rating" class="form-label">Rating</label>
                             <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range">
                         </div>
+                        <fieldset class="starability-basic">
+                            <legend>First rating:</legend>
+                            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="rating" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="rating" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="rating" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="rating" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="rating" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
                         <div class="mb-3 mt-3">
                             <label for="commemt" class="form-label">Comment</label>
                             <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
