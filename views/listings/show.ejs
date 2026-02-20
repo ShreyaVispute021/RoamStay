@@ -19,7 +19,7 @@
                     <div class="col-8 offset-2">
                         <hr>
                         <h4>Leave a Review</h4>
-                        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="mb-3" novalidate class="needs-validation">
+                        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="mb-3 needs-validation" novalidate >
                             <fieldset class="starability-heart">
                                 <legend>Rating:</legend>
                                 <input type="radio" id="rate1" name="review[rating]" value="1" required />
@@ -50,12 +50,13 @@
                                     <div class="card-body">
                                         <h5 class="card-title">@<%= review.author.username %></h5>
                                         <p class="card-text"><%= review.comment %></p>
-                                        <p class="card-text"><%= review.rating %> stars</p>
-                                        <p class="starability-result" data-rating="3">Rated: <%= review.rating %></p>
+                                        <p class="starability-result" data-rating="<%= review.rating %>">Rated: <%= review.rating %> stars</p>
                                     </div>
-                                    <form class="mb-3" method="POST" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
-                                        <button class="btn btn-sm btn-dark">Delete</button>
-                                    </form>
+                                    <% if (currUser && review.author && review.author._id.toString() === currUser._id.toString()) { %>
+                                        <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                            <button class="btn btn-sm btn-dark">Delete</button>
+                                        </form>
+                                    <% } %>
                                 </div>
                             </div>
                         <% } %>
