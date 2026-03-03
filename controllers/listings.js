@@ -27,6 +27,12 @@ module.exports.show = async (req, res) => {
 module.exports.create = async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     console.log(req.user);
+    if(req.file) {
+        newListing.image = {
+            url: req.file.path,
+            filename: req.file.filename
+        };
+    }
     newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success", "Successfully created new Listing!!");
@@ -47,15 +53,23 @@ module.exports.edit = async (req, res) => {
 //update
 module.exports.update = async (req, res) => {
     const { id } = req.params;
-    const oldListing = await Listing.findById(id);
-    if (
-        !req.body.listing.image ||
-        !req.body.listing.image.url ||
-        req.body.listing.image.url.trim() === ""
-    ) {
-        req.body.listing.image = oldListing.image;
+    // const oldListing = await Listing.findById(id);
+    // if (
+    //     !req.body.listing.image ||
+    //     !req.body.listing.image.url ||
+    //     req.body.listing.image.url.trim() === ""
+    // ) {
+    //     req.body.listing.image = oldListing.image;
+    // }
+    // await Listing.findByIdAndUpdate(id, req.body.listing);
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true });
+    if(req.file) {
+        listing.image = {
+            url: req.file.path,
+            filename: req.file.filename
+        };
+        await listing.save();
     }
-    await Listing.findByIdAndUpdate(id, req.body.listing);
     req.flash("success", "Successfully updated Listing!!");
     res.redirect(`/listings/${id}`);
 };
