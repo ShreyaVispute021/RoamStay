@@ -1,9 +1,44 @@
 const Listing = require("../models/listing");
 
 //Index Route
+// module.exports.index = async (req, res) => {
+//     const allListings = await Listing.find({});
+//     res.render("listings/index.ejs", {allListings});
+// };
+
+//Index Route
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", {allListings});
+    const { category, minPrice, maxPrice, sort } = req.query;
+    let filter = {};
+    //Category Filter
+    if (category) {
+        filter.category = category;
+    }
+    //Price Filter
+    if (minPrice || maxPrice) {
+        filter.price = {};
+        if (minPrice) {
+            filter.price.$gte = Number(minPrice);
+        }
+        if (maxPrice) {
+            filter.price.$lte = Number(maxPrice);
+        }
+    }
+    //Sorting
+    let sortOption = {};
+    if (sort === "low") {
+        sortOption.price = 1;  // ascending
+    } else if (sort === "high") {
+        sortOption.price = -1; // descending
+    }
+    const allListings = await Listing.find(filter).sort(sortOption);
+    res.render("listings/index.ejs", {
+        allListings,
+        category,
+        minPrice,
+        maxPrice,
+        sort
+    });
 };
 
 //New Route

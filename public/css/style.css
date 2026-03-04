@@ -141,28 +141,80 @@ footer {
     box-shadow: none !important;
 }
 
+/* FILTER CONTAINER */
 #filters {
     display: flex;
     flex-wrap: wrap;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
 }
 
+/* EACH FILTER */
 .filter {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     text-align: center;
-    margin-right: 2rem;
+    padding: 10px 18px;
+    border-radius: 30px;
     opacity: 0.7;
+    transition: all 0.3s ease;
 }
 
-.filter:hover {
-    opacity: 1;
-    cursor: pointer;
+/* ICON */
+.filter i {
+    font-size: 1.2rem;
 }
 
+/* TEXT */
 .filter p {
     font-size: 0.8rem;
+    margin: 5px 0 0;
+}
+
+/* LINK RESET */
+.filter-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* HOVER EFFECT */
+.filter:hover {
+    opacity: 1;
+    background-color: #f3f3f3;
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+/* ACTIVE FILTER */
+.filter.active {
+    opacity: 1;
+    background-color: #ff5a5f;
+    color: white;
+    font-weight: 600;
 }
 
 .tax-toggle {
     margin-top: 2rem;
     
 }
+
+.category-badge {
+    background-color: #000;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.Mountains { background-color: #4CAF50; }
+.Rooms { background-color: #2196F3; }
+.Trending { background-color: #FF5722; }
+.Castles { background-color: #9C27B0; }
+.IconicCities { background-color: #3F51B5; }
+.SwimmingPools { background-color: #00BCD4; }
+.Camping { background-color: #795548; }
+.Farms { background-color: #8BC34A; }
+.Arctic { background-color: #607D8B; }
+

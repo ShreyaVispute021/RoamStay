@@ -2,42 +2,67 @@
 <body>
     <!-- <h3>All Listings</h3> -->
     <div id="filters">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Rooms</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-city"></i></div>
-            <p>Iconic Cities</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountains</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-brands fa-fort-awesome"></i></div>
-            <p>Castels</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Swimming Pools</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-tents"></i></div>
-            <p>Camping</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-tractor"></i></div>
-            <p>Farms</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-regular fa-snowflake"></i></div>
-            <p>Arctic</p>
-        </div>
+        <a href="/listings" class="filter-link">
+            <div class="filter <%= !category ? 'active' : '' %>">
+                <div><i class="fa-solid fa-border-all"></i></div>
+                <p>All</p>
+            </div>
+        </a>
+        <a href="/listings?category=Trending" class="filter-link">
+            <div class="filter <%= category === 'Trending' ? 'active' : '' %>">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </div>
+        </a>
+        <a href="/listings?category=Rooms" class="filter-link">
+            <div class="filter <%= category === 'Rooms' ? 'active' : '' %>">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </div>
+        </a>
+        <a href="/listings?category=Iconic Cities" class="filter-link">
+            <div class="filter <%= category === 'Iconic Cities' ? 'active' : '' %>">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </div>
+        </a>
+        <a href="/listings?category=Mountains" class="filter-link">
+            <div class="filter <%= category === 'Mountains' ? 'active' : '' %>">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+            </div>
+        </a>
+        <a href="/listings?category=Castles" class="filter-link">
+            <div class="filter <%= category === 'Castles' ? 'active' : '' %>">
+                <div><i class="fa-brands fa-fort-awesome"></i></div>
+                <p>Castles</p>
+            </div>
+        </a>
+        <a href="/listings?category=Swimming Pools" class="filter-link">
+            <div class="filter <%= category === 'Swimming Pools' ? 'active' : '' %>">
+                <div><i class="fa-solid fa-person-swimming"></i></div>
+                <p>Swimming Pools</p>
+            </div>
+        </a>
+        <a href="/listings?category=Camping" class="filter-link">
+            <div class="filter <%= category === 'Camping' ? 'active' : '' %>">
+                <div><i class="fa-solid fa-tents"></i></div>
+                <p>Camping</p>
+            </div>
+        </a>
+        <a href="/listings?category=Farms" class="filter-link">
+            <div class="filter <%= category === 'Farms' ? 'active' : '' %>">
+                <div><i class="fa-solid fa-tractor"></i></div>
+                <p>Farms</p>
+            </div>
+        </a>
+        <a href="/listings?category=Arctic" class="filter-link">
+            <div class="filter <%= category === 'Arctic' ? 'active' : '' %>">
+                <div><i class="fa-regular fa-snowflake"></i></div>
+                <p>Arctic</p>
+            </div>
+        </a>
+        
         <div class="tax-toggle ms-auto">
             <div class="form-check-reverse form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
@@ -51,8 +76,17 @@
                 <div class="card col listing-card">
                     <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem">
                     <div class="card-img-overlay"></div>
-                    <div class="card-body">
+                    <!-- <div class="card-body">
                         <p class="card-text">
+                            <%= listing.title %><br>
+                            &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                        </p>
+                    </div> -->
+                    <div class="card-body">
+                        <span class="category-badge <%= listing.category.replace(/\s/g, '') %>">
+                            <%= listing.category %>
+                        </span>
+                        <p class="card-text mt-2">
                             <%= listing.title %><br>
                             &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
                         </p>
@@ -64,7 +98,7 @@
 </body>
 
 <script>
-    let taxSwitch = document.getElementsById("switchCheckDefault");
+    let taxSwitch = document.getElementbyId("switchCheckDefault");
     taxSwitch.addEventListener("click", () => {
         console.log()
     });
