@@ -1,12 +1,6 @@
 const Listing = require("../models/listing");
 
 //Index Route
-// module.exports.index = async (req, res) => {
-//     const allListings = await Listing.find({});
-//     res.render("listings/index.ejs", {allListings});
-// };
-
-//Index Route
 module.exports.index = async (req, res) => {
     const { category, minPrice, maxPrice, sort } = req.query;
     let filter = {};
@@ -88,15 +82,6 @@ module.exports.edit = async (req, res) => {
 //update
 module.exports.update = async (req, res) => {
     const { id } = req.params;
-    // const oldListing = await Listing.findById(id);
-    // if (
-    //     !req.body.listing.image ||
-    //     !req.body.listing.image.url ||
-    //     req.body.listing.image.url.trim() === ""
-    // ) {
-    //     req.body.listing.image = oldListing.image;
-    // }
-    // await Listing.findByIdAndUpdate(id, req.body.listing);
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true });
     if(req.file) {
         listing.image = {
