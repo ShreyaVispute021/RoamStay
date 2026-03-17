@@ -1,0 +1,98 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="col-md-6 col-lg-5">
+
+    <h3 class="mb-4 text-center">
+      Book <%= listing.title %>
+    </h3>
+
+    <div class="card shadow p-4">
+
+      <p class="mb-3">
+        <strong>Price per night:</strong> ₹<%= listing.price %>
+      </p>
+
+      <form action="/bookings/<%= listing._id %>" method="POST">
+
+        <!-- <div class="mb-3">
+          <label class="form-label">Check In</label>
+          <input type="date" name="checkIn" id="checkIn" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Check Out</label>
+          <input type="date" name="checkOut" id="checkOut" class="form-control" required>
+        </div> -->
+
+        <div class="mb-3">
+          <label class="form-label">Select Dates</label>
+          <input type="text" id="dateRange" class="form-control" placeholder="Select Check-in & Check-out" required>
+        </div>
+
+        <!-- hidden fields (VERY IMPORTANT) -->
+        <input type="hidden" name="checkIn" id="checkIn">
+        <input type="hidden" name="checkOut" id="checkOut">
+
+        <div class="mb-3">
+          <label class="form-label">Guests</label>
+          <input type="number" name="guests" class="form-control" min="1" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Total Price</label>
+          <input type="text" id="totalPriceDisplay" class="form-control" readonly>
+        </div>
+
+        <p id="priceBreakdown" class="text-success fw-semibold"></p>
+
+        <!-- hidden field to send backend -->
+        <input type="hidden" name="totalPrice" id="totalPrice">
+
+        <button class="btn btn-dark w-100">
+          Confirm Booking
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const pricePerNight = Number("<%= listing.price %>");
+
+  const totalDisplay = document.getElementById("totalPriceDisplay");
+  const breakdown = document.getElementById("priceBreakdown");
+  const hiddenTotal = document.getElementById("totalPrice");
+
+  const checkInInput = document.getElementById("checkIn");
+  const checkOutInput = document.getElementById("checkOut");
+
+  flatpickr("#dateRange", {
+    mode: "range",
+    minDate: "today",
+    dateFormat: "Y-m-d",
+
+    onClose: function(selectedDates) {
+      if (selectedDates.length === 2) {
+
+        const inDate = selectedDates[0];
+        const outDate = selectedDates[1];
+
+        checkInInput.value = inDate.toISOString().split("T")[0];
+        checkOutInput.value = outDate.toISOString().split("T")[0];
+
+        const nights = (outDate - inDate) / (1000 * 60 * 60 * 24);
+        const total = nights * pricePerNight;
+
+        totalDisplay.value = "₹ " + total;
+        breakdown.innerText = `₹${pricePerNight} × ${nights} night(s) = ₹${total}`;
+        hiddenTotal.value = total;
+      }
+    }
+  });
+
+});
+</script>

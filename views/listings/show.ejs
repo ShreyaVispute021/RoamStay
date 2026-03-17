@@ -9,12 +9,19 @@
                 <p class="card-text"><%= listing.owner ? listing.owner.username : "Unknown Owner" %></p>
                 <p class="card-text"><%= listing.description %></p>
                 <p class="card-text">₹ <%= listing.price.toLocaleString("en-IN") %><br><%= listing.location %><br><%= listing.country %></p>
-                <div class="d-flex gap-2 mt-3">
-                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger">Edit</a>
-                    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                        <button class="btn btn-dark">Delete</button>
-                    </form>
-                </div>
+
+                <% if (currUser) { %>
+                    <a href="/bookings/<%= listing._id %>/new" class="btn btn-success mt-3">Book Now</a>
+                <% } %>
+
+                <% if (currUser && listing.owner && listing.owner._id.toString() === currUser._id.toString()) { %>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger">Edit</a>
+                        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+                            <button class="btn btn-dark">Delete</button>
+                        </form>
+                    </div>
+                <% } %>
                 <% if(currUser)  {%>
                     <div class="col-8 offset-2">
                         <hr>

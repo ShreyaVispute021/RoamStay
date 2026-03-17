@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
@@ -12,10 +13,20 @@ const bookingSchema = new mongoose.Schema({
     ref:"User"
   },
 
-  checkIn:Date,
-  checkOut:Date,
+  checkIn: {
+    type: Date,
+    required: true
+  },
+  checkOut: {
+    type: Date,
+    required: true
+  },
 
-  guests:Number,
+  guests: {
+    type: Number,
+    required: true,
+    min: 1
+  },
 
   totalPrice:Number,
 

@@ -218,3 +218,7 @@ footer {
 .Farms { background-color: #8BC34A; }
 .Arctic { background-color: #607d8B; }
 
+.flatpickr-day.selected {
+  background: black;
+  color: white;
+}

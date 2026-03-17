@@ -1,5 +1,6 @@
 const listing = require("./models/listing");
 const Review = require("./models/reviews.js");
+const Booking = require("./models/booking.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 
@@ -20,9 +21,17 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 };
 
 module.exports.isOwner = async (req, res, next) => {
-    let {id} = req.params;
+    let { id } = req.params;
     let foundListing = await listing.findById(id);
-    if(!foundListing.owner.equals(res.user._id)) {
+    if (!req.user) {
+        req.flash("error", "You must be logged in!");
+        return res.redirect("/login");
+    }
+    if (!foundListing) {
+        req.flash("error", "Listing not found!");
+        return res.redirect("/listings");
+    }
+    if (!foundListing.owner.equals(req.user._id)) {
         req.flash("error", "You are not the owner of this listing");
         return res.redirect(`/listings/${id}`);
     }
@@ -67,6 +76,15 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     if (!review.author.equals(req.user._id)) {
         req.flash("error", "You are not the author of this review!");
         return res.redirect(`/listings/${id}`);
+    }
+    next();
+};
+
+module.exports.isBookingOwner = async (req, res, next) => {
+    const booking = await Booking.findById(req.params.bookingId);
+    if (!booking.user.equals(req.user._id)) {
+        req.flash("error", "Not authorized!");
+        return res.redirect("/bookings");
     }
     next();
 };

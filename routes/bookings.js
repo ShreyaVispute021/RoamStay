@@ -1,23 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const Booking = require("../models/booking");
+const wrapAsync = require("../utils/wrapAsync");
+const { isLoggedIn, isBookingOwner } = require("../middleware");
+const bookingController = require("../controllers/bookings");
 
-router.post("/create", async(req,res)=>{
+// Show booking form
+router.get("/:id/new", isLoggedIn, wrapAsync(bookingController.renderForm));
 
-    try{
+// Create booking
+router.post("/:id", isLoggedIn, wrapAsync(bookingController.createBooking));
 
-        const booking = new Booking(req.body);
+// My bookings
+router.get("/", isLoggedIn, wrapAsync(bookingController.myBookings));
 
-        await booking.save();
-
-        req.flash("success","Booking successful!");
-
-        res.redirect("/listings");
-
-    }catch(err){
-        console.log(err);
-    }
-
-});
+// Delete booking
+router.delete("/:bookingId", isLoggedIn, isBookingOwner, wrapAsync(bookingController.deleteBooking));
 
 module.exports = router;
