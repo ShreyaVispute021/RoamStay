@@ -2,8 +2,16 @@ const Listing = require("../models/listing");
 
 //Index Route
 module.exports.index = async (req, res) => {
-    const { category, minPrice, maxPrice, sort } = req.query;
+    const { category, minPrice, maxPrice, sort, search } = req.query;
     let filter = {};
+    //search
+    if (search && search.trim() !== "") {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } }
+        ];
+    }
     //Category Filter
     if (category) {
         filter.category = category;
@@ -31,7 +39,8 @@ module.exports.index = async (req, res) => {
         category,
         minPrice,
         maxPrice,
-        sort
+        sort,
+        search
     });
 };
 
