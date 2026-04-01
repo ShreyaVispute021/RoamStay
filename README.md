@@ -23,7 +23,7 @@ This project was developed as an academic full-stack web development project to 
 
 ## 🛠 Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript  
+- **Frontend:** HTML, CSS, JavaScript, EJS Templates
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB (Mongoose)  
 - **Version Control:** Git & GitHub  
