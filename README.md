@@ -11,6 +11,7 @@ This project was developed as an academic full-stack web development project to 
 ### User Features
 - Browse and search available properties
 - View detailed property information
+- Add review and reating to available property
 - Book accommodations
 
 ### Host Features
@@ -71,7 +72,5 @@ The application will be available at:
 5. Improved understanding of MVC-style project structure
 
 ## Future Improvements
-1. User authentication and authorization
-2. Image upload and cloud storage integration
-3. Booking availability calendar
-4. Enhanced UI/UX design
+1. Image upload and cloud storage integration
+2. Enhanced UI/UX design
