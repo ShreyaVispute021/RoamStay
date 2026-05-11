@@ -20,7 +20,7 @@ module.exports.saveRedirectUrl = (req, res, next) => {
     next();
 };
 
-module.exports.isOwner = async (req, res, next) => {
+module.exports.isListingOwner = async (req, res, next) => {
     let { id } = req.params;
     let foundListing = await listing.findById(id);
     if (!req.user) {
@@ -34,6 +34,18 @@ module.exports.isOwner = async (req, res, next) => {
     if (!foundListing.owner.equals(req.user._id)) {
         req.flash("error", "You are not the owner of this listing");
         return res.redirect(`/listings/${id}`);
+    }
+    next();
+};
+
+module.exports.isOwner = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        req.flash("error","You must login first!");
+        return res.redirect("/login");
+    }
+    if (req.user.role !== "owner") {
+        req.flash("error","Only property owners can access this!");
+        return res.redirect("/listings");
     }
     next();
 };

@@ -64,6 +64,7 @@ module.exports.show = async (req, res) => {
 //create
 module.exports.create = async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
     console.log(req.user);
     if(req.file) {
         newListing.image = {
@@ -71,7 +72,6 @@ module.exports.create = async (req, res, next) => {
             filename: req.file.filename
         };
     }
-    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success", "Successfully created new Listing!!");
     res.redirect("/listings");

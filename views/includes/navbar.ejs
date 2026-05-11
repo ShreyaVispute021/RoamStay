@@ -20,15 +20,19 @@
         </form>
       </div>
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">RoamStay your home</a>
-        <% if(!currUser) {%>
+        <% if(currUser && currUser.role === "owner") { %>
+          <a class="nav-link" href="/listings/new">RoamStay your home</a>
+        <% } %>
+        <% if(!currUser) { %>
           <a class="nav-link active" href="/signup"><b>SignUp</b></a>
           <a class="nav-link" href="/login"><b>LogIn</b></a>
+        <% } %>
+        <% if(currUser) { %>
+          <% if(currUser.role === "owner") { %>
+            <a class="nav-link" href="/bookings"><b>My Properties</b></a>
           <% } %>
-            <% if(currUser) {%>
-              <a class="nav-link" href="/bookings"><b>My Listings</b></a>
-              <a class="nav-link" href="/logout"><b>LogOut</b></a>
-              <% } %>
+          <a class="nav-link" href="/logout"><b>LogOut</b></a>
+        <% } %>
       </div>
     </div>
   </div>
