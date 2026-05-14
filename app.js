@@ -23,7 +23,6 @@ const userRouter = require("./routes/user.js");
 const bookingRouter = require("./routes/bookings.js");
 
 const mongoURL = "mongodb://127.0.0.1:27017/RoamStay";
-// const dbURL = process.env.ATLASDB_URL;
 
 main().then(() => {
     console.log("Connected to db");
