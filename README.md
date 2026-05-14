@@ -8,7 +8,7 @@ The project was built to gain hands-on experience in full-stack web development,
 
 ## 🌐 Live Demo
 
-🚀 Live Website: https://roamstay-uttn.onrender.com/listings
+🚀 Live Website: https://your-render-link.onrender.com
 
 💻 GitHub Repository: https://github.com/ShreyaVispute021/RoamStay
 
@@ -77,74 +77,9 @@ RoamStay/
 ├── utils/               # Utility functions
 ├── views/               # EJS templates
 ├── public/              # Static assets
-├── uploads/             # Uploaded files
 ├── app.js               # Main server file
 ├── package.json
 └── .env
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-Make sure you have installed:
-
-- Node.js
-- MongoDB
-- Git
-
----
-
-## ⚙️ Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/ShreyaVispute021/RoamStay.git
-cd RoamStay
-```
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
-### Create `.env` File
-
-Create a `.env` file in the root directory and add:
-
-```env
-CLOUD_NAME=your_cloudinary_cloud_name
-CLOUD_API_KEY=your_cloudinary_api_key
-CLOUD_API_SECRET=your_cloudinary_api_secret
-
-SECRET=your_session_secret
-
-ATLASDB_URL=your_mongodb_connection_url
-```
-
----
-
-## ▶️ Run Application
-
-### Development Mode
-
-```bash
-nodemon app.js
-```
-
-### Production Mode
-
-```bash
-node app.js
-```
-
-The application will run at:
-
-```bash
-http://localhost:8080
 ```
 
 ---
@@ -187,20 +122,6 @@ Through this project, I gained practical experience in:
 - 📱 Improved Mobile Responsiveness
 - 📍 Location-based Recommendations
 - 📊 Admin Dashboard
-
----
-
-## 🤝 Contributing
-
-Contributions, suggestions, and improvements are welcome!
-
-Feel free to fork the repository and create a pull request.
-
----
-
-## 📄 License
-
-This project is developed for educational and learning purposes.
 
 ---
 
