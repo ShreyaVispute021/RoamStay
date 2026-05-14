@@ -280,3 +280,12 @@ footer {
 .search-button:hover {
     background-color: #e63946;
 }
+
+.f-info-socials a {
+    color: black;
+    text-decoration: none;
+}
+
+.f-info-socials a:hover {
+    color: #555;
+}
