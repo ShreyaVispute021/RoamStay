@@ -23,6 +23,7 @@ const userRouter = require("./routes/user.js");
 const bookingRouter = require("./routes/bookings.js");
 
 const mongoURL = "mongodb://127.0.0.1:27017/RoamStay";
+const dbURL = process.env.ATLASDB_URL;
 
 main().then(() => {
     console.log("Connected to db");
@@ -31,7 +32,7 @@ main().then(() => {
 })
 
 async function main() {
-    await mongoose.connect(mongoURL);
+    await mongoose.connect(dbURL);
 };
 
 app.set("view engine", "ejs");
@@ -41,8 +42,10 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+app.set("trust proxy", 1);
+
 const sessionOptions = {
-    secret: "Ganesh@21",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -84,6 +87,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error.ejs", { message });
 })
 
-app.listen(8080, () => {
-    console.log("Server is listening to port 8080");
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
 });
